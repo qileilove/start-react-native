@@ -6,130 +6,100 @@
 
 import React, { Component } from 'react';
 import {
-  Image,
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TextInput,
-  NavigatorIOS,
-  TouchableHighlight,
-  SectionList,
-  ScrollView
+    Text,
+    Image,
+    View,
+    StyleSheet,
+    ToastAndroid,
+    AppRegistry,
 } from 'react-native';
 
 export default class AwesomeProject extends Component {
-
-
-    render() {
-      return (
-          <View style={FlexDiceTestStyle.container}>
-              <Text style={FlexDiceTestStyle.item1}>1</Text>
-              <Text style={FlexDiceTestStyle.item2}>2</Text>
-              <Text style={FlexDiceTestStyle.item3}>3</Text>
-              <Text style={FlexDiceTestStyle.item4}>4</Text>
-              <Text style={FlexDiceTestStyle.item5}>5</Text>
-              <Text style={FlexDiceTestStyle.item6}>6</Text>
-              <Text style={FlexDiceTestStyle.item7}>7</Text>
-              <Text style={FlexDiceTestStyle.item8}>8</Text>
-              <Text style={FlexDiceTestStyle.item9}>9</Text>
-          </View>
-
-      );
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: null
+        };
     }
+
+        fetchUserList() {
+            const url = 'http://m.maoyan.com/movie/list.json?type=hot&offset=0&limit=10';
+            fetch(url)
+                .then((response)=>response.json())
+                .then(
+                    (responseJson)=> {
+                        var users = responseJson.data.movies;
+                        // ToastAndroid.show(responseJson.msg, ToastAndroid.SHORT)
+                         var firstUser = users
+                        console.log(firstUser);
+                        this.setState({
+                            user: firstUser,
+                        })
+                    }
+                )
+                .catch((error)=>console.error(error))
+        }
+
+        //页面渲染完成后会主动回调该方法
+        componentDidMount() {
+            this.fetchUserList();
+        }
+
+
+        render(){
+        let item = this.state.user;
+        //这里需要判断网络请求完成与否，如果item为空时，会发生空指针
+        if (item) {
+                return this.renderItem(item[0]);
+
+        }
+        return (
+            <Text style={{textAlign: "center", fontSize: 16, padding: 20}}>加载中...</Text>
+        )
+    }
+
+    //绘制展示数据的界面
+    renderItem(item) {
+        return (
+            <View style={UserItemStyle.container_out}>
+                <Image style={UserItemStyle.image_UserAvatar} source={{uri: item.img}}/>
+                <View style={UserItemStyle.container_right}>
+                    <Text style={UserItemStyle.text_UserID}>{item.nm}</Text>
+                    <Text style={UserItemStyle.text_UserType}>{item.cat}</Text>
+                </View>
+            </View>
+        )
+    }
+
 }
-const FlexDiceTestStyle = StyleSheet.create({
-    container: {
-        backgroundColor: "blue",
-        height: 300,
-        width: 300,
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        flexDirection: "row",
-    },
-    item1: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item2: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item3: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item4: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-        alignSelf: "flex-end"
-    },
-    item5: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item6: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item7: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item8: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item9: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    }
-})
-
+    const UserItemStyle = StyleSheet.create({
+        container_out: {
+            backgroundColor: "white",
+            height: 100,
+            flexDirection: "row",
+            alignItems: "center"
+        },
+        container_right: {
+            flexDirection: "column",
+            height: 80,
+            flexGrow: 1,
+        },
+        image_UserAvatar: {
+            borderRadius: 80,
+            width: 80,
+            height: 80,
+            resizeMode: "cover",
+            marginHorizontal: 12
+        },
+        text_UserID: {
+            color: "black",
+            fontSize: 16,
+            lineHeight: 24,
+        },
+        text_UserType: {
+            color: "gray",
+            fontSize: 12,
+            lineHeight: 20,
+        },
+    })
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
