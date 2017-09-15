@@ -13,6 +13,7 @@ import {
     ToastAndroid,
     AppRegistry,
 } from 'react-native';
+import Header from './Header'
 
 export default class AwesomeProject extends Component {
     constructor(props) {
@@ -61,11 +62,15 @@ export default class AwesomeProject extends Component {
     //绘制展示数据的界面
     renderItem(item) {
         return (
+
             <View style={UserItemStyle.container_out}>
+                    <Header style={UserItemStyle.header}/>
+
                 <Image style={UserItemStyle.image_UserAvatar} source={{uri: item.img}}/>
                 <View style={UserItemStyle.container_right}>
                     <Text style={UserItemStyle.text_UserID}>{item.nm}</Text>
                     <Text style={UserItemStyle.text_UserType}>{item.cat}</Text>
+
                 </View>
             </View>
         )
@@ -73,11 +78,12 @@ export default class AwesomeProject extends Component {
 
 }
     const UserItemStyle = StyleSheet.create({
+        header:{
+            alignSelf:'center',backgroundColor:'white',marginTop:20,width:100
+        },
         container_out: {
-            backgroundColor: "white",
+            alignItems:'flex-start',backgroundColor:"darkgray",marginTop:20,
             height: 100,
-            flexDirection: "row",
-            alignItems: "center"
         },
         container_right: {
             flexDirection: "column",
@@ -85,7 +91,8 @@ export default class AwesomeProject extends Component {
             flexGrow: 1,
         },
         image_UserAvatar: {
-            borderRadius: 80,
+            alignSelf:'center',
+            borderRadius: 10,
             width: 80,
             height: 80,
             resizeMode: "cover",
