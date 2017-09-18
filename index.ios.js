@@ -22,114 +22,25 @@ import {
 export default class AwesomeProject extends Component {
 
 
-    render() {
-      return (
-          <View style={FlexDiceTestStyle.container}>
-              <Text style={FlexDiceTestStyle.item1}>1</Text>
-              <Text style={FlexDiceTestStyle.item2}>2</Text>
-              <Text style={FlexDiceTestStyle.item3}>3</Text>
-              <Text style={FlexDiceTestStyle.item4}>4</Text>
-              <Text style={FlexDiceTestStyle.item5}>5</Text>
-              <Text style={FlexDiceTestStyle.item6}>6</Text>
-              <Text style={FlexDiceTestStyle.item7}>7</Text>
-              <Text style={FlexDiceTestStyle.item8}>8</Text>
-              <Text style={FlexDiceTestStyle.item9}>9</Text>
-          </View>
+    constructor(props) {
+        super(props);
+        this.state = {text: ''};
+    }
 
-      );
+    render() {
+        return (
+            <View style={{padding: 10}}>
+                <TextInput
+                    style={{height: 40}}
+                    placeholder="Type here to translate!"
+                    onChangeText={(text) => this.setState({text})}
+                />
+                <Text style={{padding: 10, fontSize: 42}}>
+                    {this.state.text.split(' ').map((word) => word && '🍕').join(' ')}
+                </Text>
+            </View>
+        );
     }
 }
-const FlexDiceTestStyle = StyleSheet.create({
-    container: {
-        backgroundColor: "blue",
-        height: 300,
-        width: 300,
-        justifyContent: "space-between",
-        flexWrap: "wrap",
-        flexDirection: "row",
-    },
-    item1: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item2: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item3: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item4: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-        alignSelf: "flex-end"
-    },
-    item5: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item6: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item7: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item8: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    },
-    item9: {
-        color: "#fff",
-        backgroundColor: "#000",
-        height: 80,
-        width: 80,
-        textAlign: "center",
-        textAlignVertical: "center",
-        margin: 4,
-    }
-})
 
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);
