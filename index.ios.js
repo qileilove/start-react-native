@@ -14,7 +14,7 @@ import {
     AppRegistry,
 } from 'react-native';
 import Header from './Header'
-
+import ParallaxTest from './ParallaxTest'
 export default class AwesomeProject extends Component {
     constructor(props) {
         super(props);
@@ -65,7 +65,7 @@ export default class AwesomeProject extends Component {
 
             <View style={UserItemStyle.container_out}>
                     <Header style={UserItemStyle.header}/>
-
+                    <ParallaxTest/>
                 <Image style={UserItemStyle.image_UserAvatar} source={{uri: item.img}}/>
                 <View style={UserItemStyle.container_right}>
                     <Text style={UserItemStyle.text_UserID}>{item.nm}</Text>
